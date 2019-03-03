@@ -1,5 +1,5 @@
 ---	SCRIPT CREATED BY DNP
----	Don't claim it as yours
+---	DONT RELEASE THAT SCRIPT
 
 local Keys = {
   ["ESC"] = 322, ["F1"] = 288, ["F2"] = 289, ["F3"] = 170, ["F5"] = 166, ["F6"] = 167, ["F7"] = 168, ["F8"] = 169, ["F9"] = 56, ["F10"] = 57, 
@@ -82,21 +82,6 @@ AddEventHandler('esx:setJob', function(job)
     Citizen.Wait(5000)
 end)
 
-RegisterNetEvent("esx_walkie:checkActionNearbyB") -- Checkt, falls Personen in der Nähe sind
-AddEventHandler("esx_walkie:checkActionNearbyB", function(player)
-    local lCoords = GetEntityCoords(PlayerPedId())
-    local eCoords = GetEntityCoords(GetPlayerPed(GetPlayerFromServerId(player)))
-    local distIs  = Vdist(lCoords.x, lCoords.y, lCoords.z, eCoords.x, eCoords.y, eCoords.z)
-    local maxDistance = 8.0
-	if player ~= -1 and distIs <= maxDistance and Nearby == false then -- Wenn Entfernung OK, dann check im Server, ob Police == true
-		Nearby = true
-		TriggerServerEvent("esx_walkie:checkClosestPlayer", GetPlayerPed(player))
-	elseif player ~= -1 and distIs > maxDistance and Nearby == true then -- Wenn Entfernung NICHT OK, dann remove die Channel und Prox
-		Nearby = false
-		TriggerServerEvent("esx_walkie:removeClosestPlayer", GetPlayerPed(player))
-	end
-end)
-
 RegisterNetEvent("esx_walkie:startActionB") -- Aktion Person B
 AddEventHandler("esx_walkie:startActionB", function()
     NetworkSetTalkerProximity(0.00) -- Sprachreichweite wird unbegrenzt
@@ -105,16 +90,6 @@ end)
 RegisterNetEvent("esx_walkie:stopActionB") -- Aktion Person B
 AddEventHandler("esx_walkie:stopActionB", function()
     NetworkSetTalkerProximity(6.00) -- Sprachreichweite wird 6 Meter
-end)
-
-RegisterNetEvent("esx_walkie:startActionNearbyB")
-AddEventHandler("esx_walkie:startActionNearbyB", function(player)
-    NetworkSetTalkerProximity(0.00) -- Sprachreichweite wird unbegrenzt
-end)
-
-RegisterNetEvent("esx_walkie:stopActionNearbyB")
-AddEventHandler("esx_walkie:stopActionNearbyB", function(player)
-    NetworkSetTalkerProximity(6.00) -- Sprachreichweite wird auf 6 Metern gestellt
 end)
 
 RegisterNetEvent("esx_walkie:startAnim") -- Event, um andere Personen Animation starten zu lassen
@@ -135,7 +110,7 @@ AddEventHandler("esx_walkie:stopAnim", function(player)
         Citizen.Wait(1)
         ClearPedTasks(GetPlayerPed(-1))
     end)
-    TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer",10.0, 'radio', 1.0)
+    TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer",10.0, 'copradiooff', 1.0)
 end)
 
 RegisterNetEvent('esx_walkie:playSoundWithinDistanceClient')
