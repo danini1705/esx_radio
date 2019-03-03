@@ -81,19 +81,7 @@ AddEventHandler('esx:setJob', function(job)
     
     Citizen.Wait(5000)
 end)
---[[
-RegisterNetEvent("esx_walkie:checkActionNearbyB") -- Checkt, falls Personen in der Nähe sind
-AddEventHandler("esx_walkie:checkActionNearbyB", function(player)
-	local player, distance = ESX.Game.GetClosestPlayer() -- Nächster Spieler
-	if player ~= -1 and distance <= 3.0 and Nearby == false then -- Wenn Entfernung OK, dann check im Server, ob Police == true
-		Nearby = true
-		TriggerServerEvent("esx_walkie:checkClosestPlayer", GetPlayerPed(player))
-	elseif player ~= -1 and distance > 3.0 and Nearby == true then -- Wenn Entfernung NICHT OK, dann remove die Channel und Prox
-		Nearby = false
-		TriggerServerEvent("esx_walkie:removeClosestPlayer", GetPlayerPed(player))
-	end
-end)
-]]
+
 RegisterNetEvent("esx_walkie:checkActionNearbyB") -- Checkt, falls Personen in der Nähe sind
 AddEventHandler("esx_walkie:checkActionNearbyB", function(player)
     local lCoords = GetEntityCoords(PlayerPedId())
@@ -108,14 +96,6 @@ AddEventHandler("esx_walkie:checkActionNearbyB", function(player)
 		TriggerServerEvent("esx_walkie:removeClosestPlayer", GetPlayerPed(player))
 	end
 end)
-
---[[RegisterNetEvent("esx_walkie:dontCheckActionNearbyB") -- Checkt, falls Personen in der Nähe sind
-AddEventHandler("esx_walkie:dontCheckActionNearbyB", function(player)
-	local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer() -- Nächster Spieler
-	if closestPlayer ~= -1 and closestDistance <= 3.0 then -- Wenn Entfernung OK, dann remove die Prox
-		TriggerServerEvent("esx_walkie:removeClosestPlayer", GetPlayerServerId(closestPlayer))
-	end
-end)--]]
 
 RegisterNetEvent("esx_walkie:startActionB") -- Aktion Person B
 AddEventHandler("esx_walkie:startActionB", function()
