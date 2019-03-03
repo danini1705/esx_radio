@@ -135,7 +135,7 @@ AddEventHandler("esx_walkie:stopAnim", function(player)
         Citizen.Wait(1)
         ClearPedTasks(GetPlayerPed(-1))
     end)
-    TriggerServerEvent("InteractSound_SV:PlayWithinDistance",10.0, 'radio', 1.0)
+    TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer",10.0, 'radio', 1.0)
 end)
 
 RegisterNetEvent('esx_walkie:playSoundWithinDistanceClient')
