@@ -37,7 +37,7 @@ Citizen.CreateThread(function()
     while true do
         Citizen.Wait(1)
         if IsControlPressed(2, Keys["Y"]) and GetLastInputMethod(2) and Busy == false and PlayerData.job.name ~= nil and PlayerData.job.name == "police" then
-                TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer", 10, "copradio", 1.0) 
+                TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer", 10, "copradiooff", 0.7) 
                 TriggerServerEvent("esx_walkie:startActionB") -- Aktion für andere Personen starten
                 DisableActions(GetPlayerPed(-1))
                 TriggerEvent("esx_walkie:startAnim", source)
@@ -45,7 +45,7 @@ Citizen.CreateThread(function()
             -- Aktiviere esx_walkie Talkie
         elseif not IsControlPressed(2, Keys["Y"]) and GetLastInputMethod(2) and Busy == true and PlayerData.job.name ~= nil and PlayerData.job.name == "police" then
             -- Deaktiviere esx_walkie Talkie
-                TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer", 10, "copradiooff", 1.0) 
+                TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer", 10, "copradio", 0.7) 
                 TriggerServerEvent("esx_walkie:stopActionB") -- Aktion für andere Personen stoppen
                 EnableActions(GetPlayerPed(-1))
                 TriggerEvent("esx_walkie:stopAnim", source)
@@ -110,7 +110,7 @@ AddEventHandler("esx_walkie:stopAnim", function(player)
         Citizen.Wait(1)
         ClearPedTasks(GetPlayerPed(-1))
     end)
-    TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer",10.0, 'copradiooff', 1.0)
+    TriggerServerEvent("esx_walkie:playSoundWithinDistanceServer",10.0, 'copradio', 0.7)
 end)
 
 RegisterNetEvent('esx_walkie:playSoundWithinDistanceClient')
