@@ -1,6 +1,5 @@
-ESX                           = nil
-local PlayerData              = {}
-local Busy, Nearby  	      = false, false
+local Busy, Nearby, PlayerData = false, false, {}
+ESX = nil
 
 Citizen.CreateThread(function()
 	while ESX == nil do
@@ -35,9 +34,7 @@ Citizen.CreateThread(function()
         end
     end
 end)
-
 -- FUNCTIONS
-
 function EnableActions(ped)
 	EnableControlAction(1, 140, true)
 	EnableControlAction(1, 141, true)
@@ -53,26 +50,21 @@ function DisableActions(ped)
 	DisableControlAction(1, 37, true) -- Disables INPUT_SELECT_WEAPON (TAB)
 	DisablePlayerFiring(ped, true) -- Disable weapon firing
 end
-
 -- EVENTS
-
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
     PlayerData.job = job
     
     Citizen.Wait(5000)
 end)
-
 RegisterNetEvent("esx_walkie:startActionB") -- Aktion Person B
 AddEventHandler("esx_walkie:startActionB", function()
     NetworkSetTalkerProximity(0.00) -- Sprachreichweite wird unbegrenzt
 end)
-
 RegisterNetEvent("esx_walkie:stopActionB") -- Aktion Person B
 AddEventHandler("esx_walkie:stopActionB", function()
     NetworkSetTalkerProximity(6.00) -- Sprachreichweite wird 6 Meter
 end)
-
 RegisterNetEvent("esx_walkie:startAnim") -- Event, um andere Personen Animation starten zu lassen
 AddEventHandler("esx_walkie:startAnim", function(player)
     Citizen.CreateThread(function()
@@ -92,7 +84,6 @@ AddEventHandler("esx_walkie:stopAnim", function(player)
         ClearPedTasks(GetPlayerPed(-1))
     end)
 end)
-
 RegisterNetEvent('esx_walkie:playSoundWithinDistanceClient')
 AddEventHandler('esx_walkie:playSoundWithinDistanceClient', function(playerNetId, maxDistance, soundFile, soundVolume)
     local lCoords = GetEntityCoords(GetPlayerPed(-1))
